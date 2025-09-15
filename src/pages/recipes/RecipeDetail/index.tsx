@@ -142,7 +142,6 @@ export default function RecipeDetail() {
         </div>
 
         <p className=" mb-7">
-          <span className="text-base">👩‍🍳 </span>
           <span className="text-base font-worksans italic text-gray-600">
             {recipe?.author}
           </span>
