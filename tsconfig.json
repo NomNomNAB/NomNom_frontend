@@ -1,7 +1,12 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "types": ["vite/client", "vitest", "@testing-library/jest-dom"]
+  },
+  "include": ["src", "src/**/*.test.tsx", "src/**/*.test.ts"]
 }

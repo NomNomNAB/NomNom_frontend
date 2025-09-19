@@ -90,7 +90,7 @@ export default function Header({ toggleSearch, isSearchOpen }: { toggleSearch: (
           </p>
           {isLogOutOpen && (
             <div
-              className="absolute text-center py-2 bg-primary text-white rounded-[6px] w-full top-[100%] cursor-pointer hover:text-primary hover:bg-white"
+              className="absolute text-center py-2 bg-primary text-white rounded-[6px] w-full top-[100%] cursor-pointer hover:text-primary hover:bg-white z-100"
               onClick={handleLogOut}
             >
               <p className="font-bold">Log Out</p>
