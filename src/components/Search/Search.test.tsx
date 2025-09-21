@@ -1,14 +1,17 @@
-import { render, screen } from "@testing-library/react";
-import { expect, test } from "vitest";
+import { render, screen, waitFor } from "@testing-library/react";
+import { expect, test, vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import SearchBar from ".";
 import { MemoryRouter } from "react-router-dom";
+import { ThemeProvider } from "../../contexts/ThemeContext";
 
 test("no keyword provided", () => {
     render(
-      <MemoryRouter>
-        <SearchBar />
-      </MemoryRouter>
+      <ThemeProvider>
+        <MemoryRouter>
+          <SearchBar />
+        </MemoryRouter>
+      </ThemeProvider>
     );
     const searchInput = screen.getByPlaceholderText(/search recipes/i);
     expect(
@@ -18,50 +21,53 @@ test("no keyword provided", () => {
 })
 
 test("keyword with results provided", async () => {
-    render(
+  global.fetch = vi.fn(
+    () =>
+      Promise.resolve({
+        ok: true,
+        status: 200,
+        json: async () => [
+          { id: 1, title: "Bánh mì" },
+          { id: 2, title: "Bánh khọt" },
+          { id: 3, title: "Bánh bèo" },
+          { id: 4, title: "Bánh cuốn" },
+          { id: 5, title: "Bánh tráng trộn" },
+        ],
+      } as Response) // cast to Response so TS doesn’t complain
+  );
+
+  render(
+    <ThemeProvider>
       <MemoryRouter>
         <SearchBar />
       </MemoryRouter>
-    );
-    const searchInput = screen.getByPlaceholderText(/search recipes/i);
-    expect(searchInput).toBeInTheDocument();
+    </ThemeProvider>
+  );
 
-    await userEvent.type(searchInput, "bánh");
+  const searchInput = screen.getByPlaceholderText(/search recipes/i);
+  expect(searchInput).toBeInTheDocument();
 
-    expect(searchInput).toHaveValue("bánh");
+  await userEvent.type(searchInput, "bánh");
+  expect(searchInput).toHaveValue("bánh");
 
-    const result1 = await screen.findByText(/bánh mì/i);
-    expect(result1).toBeInTheDocument();
-    expect(result1).toHaveLength(1);
+  const results = await screen.findAllByText(/bánh/i, {}, { timeout: 2000 });
+  expect(results).toHaveLength(5);
 
-    const result2 = await screen.findByText(/bánh khọt/i);
-    expect(result2).toBeInTheDocument();
-    expect(result1).toHaveLength(2);
-
-    const result3 = await screen.findByText(/bánh bèo/i);
-    expect(result3).toBeInTheDocument();
-    expect(result1).toHaveLength(3);
-
-    const result4 = await screen.findByText(/bánh cuốn/i);
-    expect(result4).toBeInTheDocument();
-    expect(result1).toHaveLength(4);
-
-    const result5 = await screen.findByText(/bánh tráng trộn/i);
-    expect(result5).toBeInTheDocument();
-    expect(result1).toHaveLength(5);
-})
+});
 
 test("keyword with no results provided", async () => {
-    render(
+  render(
+    <ThemeProvider>
       <MemoryRouter>
         <SearchBar />
       </MemoryRouter>
-    );
-    const searchInput = screen.getByPlaceholderText("Search recipes...");
-    expect(searchInput).toBeInTheDocument();
+    </ThemeProvider>
+  );
 
-    await userEvent.type(searchInput, "asf");
-    expect(searchInput).toHaveValue("asf");
+  const searchInput = screen.getByPlaceholderText("Search recipes...");
+  expect(searchInput).toBeInTheDocument();
 
-    expect(await screen.findByText(/no results/i)).toBeInTheDocument();
-})
+  await userEvent.type(searchInput, "asf");
+  expect(searchInput).toHaveValue("asf");
+  expect(await screen.findByText(/no results found/i)).toBeInTheDocument();
+});
