@@ -1,25 +1,48 @@
-@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 
 @import "tailwindcss";
 
-@theme{
+@theme {
   /* Font */
-  --font-lobster: 'Lobster', cursive;
-  --font-worksans: 'Work Sans', sans-serif;
-  --font-playfair: 'Playfair Display', serif;
+  --font-lobster: "Lobster", cursive;
+  --font-worksans: "Work Sans", sans-serif;
+  --font-playfair: "Playfair Display", serif;
 
   /* Color */
-  --color-primary: #A64F67;
-  --color-cream: #FDFBEE;
-  --color-input: #F9FBFC;
-  --color-input-border: #B3B3B3;
-  --color-light-gray: #F9FBFC;
+  --color-primary: #a64f67;
+  --color-cream: #fdfbee;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-input: #2a2c45;
+  --color-input-border: #b3b3b3;
+  --color-light-gray: #f9fbfc;
+  --color-gray: #6b7280;
   --color-dark-primary: #833f5d;
+  --color-form: #f9fbfc;
+  --color-light-primary: #efcfd6;
+  --color-dark-cream: #fdf9d6;
 }
 
-.scrollbar-hide::-webkit-scrollbar { display: none; }
-.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+.dark {
+  --color-primary: #ff7fa6;
+  --color-cream: #6b3f69;
+  /* 1E1F33 */
+  --color-white: #28293d;
+  --color-black: #ffffff;
+  --color-light-gray: #f2f5f8;
+  --color-input: #2a2c45;
+  --color-gray: #9ca3af;
+  --color-form: #9ca3af;
+  --color-input-border: #5c5f7f;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 button {
   cursor: pointer;
 }
-

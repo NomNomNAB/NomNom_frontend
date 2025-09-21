@@ -6,15 +6,18 @@ import { BrowserRouter } from 'react-router-dom';
 import AppRoutes from './routes/index.tsx';
 //import { AuthProvider } from './stores/auth/index.tsx';
 import { makeServer } from './mirage/index.ts';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 makeServer();
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
-    <AppRoutes />
-      {/* <AuthProvider>
+    <ThemeProvider>
+      <BrowserRouter>
         <AppRoutes />
-      </AuthProvider> */}
-    </BrowserRouter>
+        {/* <AuthProvider>
+          <AppRoutes />
+        </AuthProvider> */}
+      </BrowserRouter>
+    </ThemeProvider>
   </StrictMode>
 );

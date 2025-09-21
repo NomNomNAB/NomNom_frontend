@@ -26,6 +26,11 @@ export function makeServer({ environment = "development" } = {}) {
         }
       });
 
+      const stored = localStorage.getItem("recipes");
+      if (stored) {
+        JSON.parse(stored).forEach((r: any) => server.create("recipe", r));
+      }
+
       // Seed categories
       data.categories.forEach((category) => {
         db.categories.insert(category);
@@ -104,6 +109,13 @@ export function makeServer({ environment = "development" } = {}) {
 
       this.get("/ratings/:id", (schema, request) => {
         return schema.db.ratings.find(request.params.id);
+      });
+
+      this.post("/recipes", (schema, request) => {
+        const attrs = JSON.parse(request.requestBody);
+        const recipe = schema.create("recipe", attrs);
+        localStorage.setItem("recipes", JSON.stringify(schema.db.recipes));
+        return recipe;
       });
 
       this.get("/recipes/:id/ratings", (schema, request) => {

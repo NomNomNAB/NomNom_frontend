@@ -1,7 +1,8 @@
-import { ChevronLeft, ChevronRight, Filter } from "lucide-react";
+import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import type { Category } from "../../types";
 import Button from "../Button";
 import { useRef } from "react";
+import { useFavouriteList } from "../../hooks/useFavourite";
 
 interface Props {
   categories: Category[];
@@ -17,6 +18,8 @@ export default function CategoryFilter({
   onChange,
 }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null);
+const { count } = useFavouriteList() ?? 0;
+
   // Handle scroll button
   const scroll = (dir: "left" | "right") => {
     const el = scrollRef.current;
@@ -31,12 +34,22 @@ export default function CategoryFilter({
   return (
     <div>
       <div className="flex justify-between items-center mb-3">
-        <h2 className="md:text-2xl text-lg font-bold font-playfair">
-          Browse by <span className="text-primary">Category</span>
+        <h2 className="text-black md:text-2xl text-lg font-bold font-playfair">
+          Browse By
         </h2>
-        <Button variant="primary" className="flex items-center gap-2 bg-transparent">
-          <Filter className="w-4 h-4" /> Filter by
+        <Button
+          onClick={() => onChange('fav')}
+          className="relative inline-flex shrink-0 items-center gap-2 rounded-full border border-black/10 bg-white shadow-sm transition-transform duration-200 hover:scale-105 active:scale-95 !px-6"
+        >
+          <Heart className="h-5 w-5 text-primary fill-current" />
+          <span className="text-black">My favorite</span>
+          {count > 0 && (
+            <span className="absolute -top-2 right-2 inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-primary px-1.5 text-xs font-bold text-white ring-2 ring-white">
+              {count}
+            </span>
+          )}
         </Button>
+
       </div>
 
       <div className="relative">
@@ -44,7 +57,7 @@ export default function CategoryFilter({
         <button
           type="button"
           onClick={() => scroll("left")}
-          className= "absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-1 transition duration-200 hover:scale-120"
+          className="text-black absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-1 transition duration-200 hover:scale-120"
           aria-label="Scroll left"
         >
           <ChevronLeft className="w-5 h-5" />
@@ -84,7 +97,7 @@ export default function CategoryFilter({
         <button
           type="button"
           onClick={() => scroll("right")}
-          className= "absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white transition duration-200 rounded-full p-1 hover:scale-120"
+          className="text-black absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white transition duration-200 rounded-full p-1 hover:scale-120"
           aria-label="Scroll right"
         >
           <ChevronRight className="w-5 h-5" />

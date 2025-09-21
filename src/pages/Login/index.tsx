@@ -66,7 +66,7 @@ export default function Login() {
     }
   };
   return (
-    <div className="w-full flex flex-col sm:flex-row items-center justify-center">
+    <div className="text-black w-full flex flex-col sm:flex-row items-center justify-center">
       <div className="hidden sm:flex relative w-2/4 h-screen">
         <img
           src="/cooking2.JPG"

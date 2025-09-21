@@ -1,39 +1,34 @@
-import { motion } from "framer-motion";
 import { steps } from "../../constants";
 
 export default function Steps() {
-    return (
-        <div>
-            <div className="mb-6 text-center">
-                <h2 className="font-playfair font-extrabold text-primary text-3xl md:text-4xl font-bold text-gray-900">
-                    Getting Started
-                </h2>
-                <p className="mt-2 text-gray-600 max-w-xl mx-auto">
-                    Just three simple steps to discover, create, and share your favorite recipes
-                    with Nom Nom
-                </p>
-            </div>
+  return (
+    <div>
+      <div className="text-black mb-6 text-center">
+        <h2 className="font-playfair font-extrabold text-primary text-3xl md:text-4xl">
+          Getting Started
+        </h2>
+        <p className="mt-2 text-gray max-w-xl mx-auto">
+          Just three simple steps to discover, create, and share your favorite recipes
+          with Nom Nom
+        </p>
+      </div>
 
-            <div className="grid gap-8 md:grid-cols-3">
-                {steps.map((s, i) => (
-                    <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.5, delay: i * 0.1 }}
-                        className="group flex flex-col items-center rounded-2xl border border-gray-200 bg-white p-8 shadow-sm hover:shadow-lg hover:border-primary/40 transition"
-                    >
-                        <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-rose-100 text-primary group-hover:bg-primary group-hover:text-white transition">
-                            <s.icon className="h-7 w-7" />
-                        </div>
-                        <h3 className="text-lg font-semibold text-gray-900">{s.title}</h3>
-                        <p className="mt-3 text-sm text-gray-600 max-w-[220px] text-center">
-                            {s.desc}
-                        </p>
-                    </motion.div>
-                ))}
+      <div className="grid gap-8 md:grid-cols-3">
+        {steps.map((s, i) => (
+          <div
+            key={i}
+            className="group flex flex-col items-center rounded-2xl border border-gray-200 bg-white p-8 shadow-sm hover:shadow-lg hover:border-primary/40 transition"
+          >
+            <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-rose-100 text-primary group-hover:bg-primary group-hover:text-white transition">
+              <s.icon className="h-7 w-7" />
             </div>
-        </div>
-    );
+            <h3 className="text-lg font-semibold text-black">{s.title}</h3>
+            <p className="mt-3 text-sm text-gray max-w-[220px] text-center">
+              {s.desc}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }

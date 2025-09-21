@@ -12,7 +12,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     return (
       <div className="flex flex-col w-full gap-1">
         {label && (
-          <label className="font-medium text-sm sm:text-md text-black dark:text-gray-600">
+          <label className="font-medium text-sm sm:text-md text-black">
             {label}
           </label>
         )}

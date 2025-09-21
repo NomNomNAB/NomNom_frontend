@@ -1,8 +1,10 @@
+import { Heart } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useFavourite } from "../../../hooks/useFavourite";
 
 export interface RecipeCardProps {
-  id: number;
+  id: string;
   image?: string;
   title: string;
   description?: string;
@@ -24,6 +26,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
   className = "",
 }) => {
   const navigate = useNavigate();
+  const { isFav, toggleFav, canUse } = useFavourite(id);
 
   const handleClick = () => {
     if (!id) {
@@ -31,6 +34,15 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
       return;
     }
     navigate(`/recipes/${id}`);
+  };
+
+  const handleFavouriteClick: React.MouseEventHandler<SVGSVGElement> = (e) => {
+    e.stopPropagation();
+    if (!canUse) {
+      navigate("/login");
+      return;
+    }
+    toggleFav();
   };
 
   return (
@@ -47,22 +59,29 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
             {category}
           </span>
         )}
-        <h2 className="text-lg font-bold mb-2 font-worksans">{title}</h2>
+        <h2 className="text-black text-lg font-bold mb-2 font-worksans">{title}</h2>
         {description && (
           <p className="font-worksans font-medium text-black flex-1 mb-1">
-          {description}
+            {description}
           </p>
         )}
         {cookingTime && (
           <p className="font-worksans font-medium text-black flex-1 mt-1 mb-4">
-           Cooking Duration: {cookingTime}
+            Cooking Duration: {cookingTime}
           </p>
         )}
-        {actions && (
-          <div className="font-worksans font-bold text-sm mt-auto">
-            {actions}
-          </div>
-        )}
+        <div className="flex justify-between items-center">
+          {actions && (
+            <div className="text-black font-worksans hover:font-bold text-sm mt-auto">
+              {actions}
+            </div>
+          )}
+          <Heart
+            onClick={handleFavouriteClick}
+            className={`cursor-pointer trasition duration-100 hover:text-[#732c4e] hover:scale-110 ${isFav ? "text-primary fill-current" : "text-primary"
+              }`}
+          />
+        </div>
       </div>
     </div>
   );
