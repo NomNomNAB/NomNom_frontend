@@ -3,6 +3,7 @@ import type { Category } from "../../types";
 import Button from "../Button";
 import { useRef } from "react";
 import { useFavouriteList } from "../../hooks/useFavourite";
+import useAuth from "../../hooks/useAuth";
 
 interface Props {
   categories: Category[];
@@ -19,6 +20,7 @@ export default function CategoryFilter({
 }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null);
 const { count } = useFavouriteList() ?? 0;
+  const { user } = useAuth();
 
   // Handle scroll button
   const scroll = (dir: "left" | "right") => {
@@ -37,19 +39,20 @@ const { count } = useFavouriteList() ?? 0;
         <h2 className="text-black md:text-2xl text-lg font-bold font-playfair">
           Browse By
         </h2>
-        <Button
-          onClick={() => onChange('fav')}
-          className="relative inline-flex shrink-0 items-center gap-2 rounded-full border border-black/10 bg-white shadow-sm transition-transform duration-200 hover:scale-105 active:scale-95 !px-6"
-        >
-          <Heart className="h-5 w-5 text-primary fill-current" />
-          <span className="text-black">My favorite</span>
-          {count > 0 && (
-            <span className="absolute -top-2 right-2 inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-primary px-1.5 text-xs font-bold text-white ring-2 ring-white">
-              {count}
-            </span>
-          )}
-        </Button>
-
+        {user && (
+          <Button
+            onClick={() => onChange('fav')}
+            className="relative inline-flex shrink-0 items-center gap-2 rounded-full border border-black/10 bg-white shadow-sm transition-transform duration-200 hover:scale-105 active:scale-95 !px-6"
+          >
+            <Heart className="h-5 w-5 text-primary fill-current" />
+            <span className="text-black">My favorite</span>
+            {count > 0 && (
+              <span className="absolute -top-2 right-2 inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-primary px-1.5 text-xs font-bold text-white ring-2 ring-white">
+                {count}
+              </span>
+            )}
+          </Button>
+        )}
       </div>
 
       <div className="relative">

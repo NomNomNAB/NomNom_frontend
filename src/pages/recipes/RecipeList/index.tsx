@@ -14,7 +14,7 @@ export default function RecipeList() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedFilters, setSelectedFilters] = useState<number[]>([]);
   const { favId } = useFavouriteList();
-
+  const [visible, setVisible] = useState(6);
 
   useEffect(() => {
     fetch("/api/recipes")
@@ -25,6 +25,10 @@ export default function RecipeList() {
       .then((res) => res.json())
       .then(setCategroies);
   }, []);
+
+  useEffect(() => {
+    setVisible(6);
+  }, [selectedCategory, selectedFilters]);
 
   // console.log("selectedchange on recipe comp:", fetch("api/categories"))
 
@@ -55,6 +59,9 @@ export default function RecipeList() {
       return category ? `${category.name} Recipes` : "Recipe List";
     }
   };
+  const visibleRecipes = multiFilteredRecipes.slice(0, visible);
+// console.log("count visi:", visible)
+// console.log("count visi2:", visibleRecipes)
 
   return (
     <div className="font-worksans flex flex-col min-h-screen w-full">
@@ -138,25 +145,38 @@ export default function RecipeList() {
             </Link>
           </div>
         ) : multiFilteredRecipes.length > 0 ? (
-          <RecipeCardList
-            recipes={
-              multiFilteredRecipes.map((recipe) => {
-                return {
-                  id: recipe.id,
-                  image: recipe.image,
-                  title: recipe.title,
-                  description: recipe.description,
-                  category: recipe.category,
-                  cookingTime: recipe.cookingTime,
-                  actions: "Read Recipe",
-                };
-              }) as unknown as RecipeCardProps[]
-            }
-          />
+          <>
+            <RecipeCardList
+              recipes={
+                visibleRecipes.map((recipe) => {
+                  return {
+                    id: recipe.id,
+                    image: recipe.image,
+                    title: recipe.title,
+                    description: recipe.description,
+                    category: recipe.category,
+                    cookingTime: recipe.cookingTime,
+                    actions: "Read Recipe",
+                  };
+                }) as unknown as RecipeCardProps[]
+              }
+            />
+
+            {multiFilteredRecipes.length > visible && (
+              <div className="flex justify-center mt-6">
+                <Button
+                  onClick={() => setVisible((v) => Math.min(v + 6, multiFilteredRecipes.length))}
+                 className="rounded-xl"
+                >
+                  Load more
+                </Button>
+              </div>
+            )}
+          </>
         ) : (
           <p className="text-center py-10 text-black font-medium">No recipes found.</p>
         )}
       </section>
-    </div>
+    </div >
   );
 }
