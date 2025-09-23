@@ -30,7 +30,7 @@ const routes: RouteObject[] = [
         element: <About />,
       },
       {
-        path: 'recipes',
+        path: "recipes",
         //element: <RecipeLayout />,
         children: [
           {
@@ -38,7 +38,7 @@ const routes: RouteObject[] = [
             element: <RecipeList />,
           },
           {
-            path: 'add',
+            path: "add",
             element: (
               <ProtectedRoute>
                 <AddRecipe />
@@ -46,10 +46,10 @@ const routes: RouteObject[] = [
             ),
           },
           {
-            path: ':id',
-            element: <RecipeDetail/>,
+            path: ":id",
+            element: <RecipeDetail />,
           },
-        ]
+        ],
       },
       {
         path: "sign-up",
@@ -92,5 +92,21 @@ const routes: RouteObject[] = [
 export default function AppRoutes() {
   const appRoutes = useRoutes(routes);
 
-  return <Suspense fallback={<div>Loading ...</div>}>{appRoutes}</Suspense>;
+  return (
+    <Suspense
+      fallback={
+        <div className="fixed inset-0 w-screen h-screen flex flex-col items-center justify-center bg-white bg-opacity-75 z-50">
+          <div
+            className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent"
+            role="status"
+          />
+          <p className="mt-5 text-gray-700 font-medium">
+            Please wait for a few seconds...
+          </p>
+        </div>
+      }
+    >
+      {appRoutes}
+    </Suspense>
+  );
 }

@@ -5,7 +5,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/config";
 import { useEffect, useState } from "react";
 import type { User } from "firebase/auth";
-import { AuthContext } from "./context/AuthContext";
+import { AuthContext } from "./contexts/AuthContext";
 import SearchBar from "./components/Search";
 import ThemeToggle from "./components/ThemeToggle";
 
