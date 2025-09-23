@@ -174,7 +174,7 @@ Contributors: Hong Nhung, Ngoc Khanh, Tam Nhu, Khanh Tran.
 
 ## Internationalization
 
-Ennglish and Vietnamese supported.
+English supported.
 
 ## License
 
