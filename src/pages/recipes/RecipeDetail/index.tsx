@@ -94,7 +94,7 @@ export default function RecipeDetail() {
     const newItem: Rating = {
       id: Date.now(),
       recipeId,
-      userId: 0, 
+      userId: 0,
       user: user?.email ? user.email : "Guest User",
       rating: stars,
       comment: clean,
@@ -246,6 +246,7 @@ export default function RecipeDetail() {
         </section>
       </section>
 
+      {/* nutrition */}
       {recipe?.nutrition &&
         (recipe.nutrition.calories !== null ||
           recipe.nutrition.protein !== null ||
@@ -301,22 +302,25 @@ export default function RecipeDetail() {
                 </div>
               </div>
             </div>
-
-            <div className="px-0 pb-8">
-              <RatingForm
-                ratings={allRatings}
-                showForm={showForm}
-                stars={stars}
-                comment={comment}
-                onOpenForm={openForm}
-                onCancel={cancelForm}
-                onStarsChange={setStars}
-                onCommentChange={setComment}
-                onSubmit={handleSubmit}
-              />
-            </div>
           </section>
         )}
+
+      {/* --- RATING FORM (always visible) --- */}
+      <section className="px-6 md:px-20 xl:px-32 mt-8">
+        <div className="px-0 pb-8">
+          <RatingForm
+            ratings={allRatings}
+            showForm={showForm}
+            stars={stars}
+            comment={comment}
+            onOpenForm={openForm}
+            onCancel={cancelForm}
+            onStarsChange={setStars}
+            onCommentChange={setComment}
+            onSubmit={handleSubmit}
+          />
+        </div>
+      </section>
     </div>
   );
 }
