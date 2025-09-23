@@ -97,10 +97,10 @@ export default function AppRoutes() {
       fallback={
         <div className="fixed inset-0 w-screen h-screen flex flex-col items-center justify-center bg-white bg-opacity-75 z-50">
           <div
-            className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent"
+            className="inline-block h-8 w-8 animate-spin text-gray rounded-full border-4 border-solid border-current border-r-transparent"
             role="status"
           />
-          <p className="mt-5 text-gray-700 font-medium">
+          <p className="mt-5 text-gray font-medium">
             Please wait for a few seconds...
           </p>
         </div>
