@@ -9,13 +9,13 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50">
       <div className="bg-white font-worksans p-6 rounded-lg shadow-md">
-        <h2 className="text-lg sm:text-2xl font-semibold font-lobster">Please log in</h2>
-        <p className="mt-2 text-sm sm:text-lg">You need to log in before adding a recipe.</p>
+        <h2 className="text-black text-lg sm:text-2xl font-semibold font-lobster">Please log in</h2>
+        <p className="text-black mt-2 text-sm sm:text-lg">You need to log in before adding a recipe.</p>
         <div className="mt-4 flex gap-2 justify-end">
           {/* Cancel button */}
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100 hover:border-gray-400 transition"
+            className="px-4 py-2 text-black bg-transparent border border-gray-300 rounded hover:border-gray-400 transition"
           >
             Cancel
           </button>
