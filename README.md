@@ -5,7 +5,7 @@ A modern web application for browsing, searching, and rating recipes. Built with
 ## Features
 
 - Search & filter recipes by category, ingredients, or keywords
-- Firebase Authentication (Google, Email/Password, etc.)
+- Firebase Authentication (Email/Password)
 - Rating & reviews system with authentication
 - Add your own recipes (if applicable)
 - Responsive UI for mobile and desktop
@@ -30,6 +30,24 @@ A modern web application for browsing, searching, and rating recipes. Built with
 
 [Live Demo on Vercel](https://nomnom-nab.vercel.app/)
 
+## Project Structure
+
+```
+src/
+├── components/   # Reusable UI components (Button, Card, etc.)
+├── pages/        # Main app pages (LandingPage, RecipeList, RecipeDetail)
+├── context/      # Global contexts (AuthContext)
+├── contexts/     # Theme contexts
+├── firebase/     # Firebase config & auth setup
+├── hooks/        # Custom React hooks
+├── mirage/       # Mock data
+├── App.tsx       # Root component
+├── app.css       # Global app-level styles
+├── index.css     # Tailwind base styles and resets
+├── main.tsx      # Entry point, renders <App /> to the DOM
+├── types.ts      # TypeScript type definitions
+```
+
 ## Project setup
 
 ```
@@ -46,7 +64,7 @@ cd NomNom_frontend
 1. **Local Development**
 
 - Go to Firebase Console and create a new project.
-- Enable Authentication → choose providers (Google, Email/Password, etc.).
+- Enable Authentication and choose provider (Email/Password).
 - Add a new Web App and copy the Firebase config.
 - Create a .env file in the root project:
 
@@ -78,7 +96,7 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 ```
 
-### Deployment on Vercel
+2. **Deployment on Vercel**
 
 - Go to your project on Vercel Dashboard
 - Navigate to: Settings → Environment Variables.
@@ -99,27 +117,9 @@ Run unit tests with Jest + React Testing Library:
 
 `npm test`
 
-## Project Structure
-
-```
-src/
-├── components/   # Reusable UI components (Button, Card, etc.)
-├── pages/        # Main app pages (LandingPage, RecipeList, RecipeDetail)
-├── context/      # Global contexts (AuthContext)
-├── contexts/     # Theme contexts
-├── firebase/     # Firebase config & auth setup
-├── hooks/        # Custom React hooks
-├── mirage/       # Mock data
-├── App.tsx       # Root component
-├── app.css       # Global app-level styles
-├── index.css     # Tailwind base styles and resets
-├── main.tsx      # Entry point, renders <App /> to the DOM
-├── types.ts      # TypeScript type definitions
-```
-
 ## Authentication Flow
 
-- Users sign in with Firebase Auth (Google, Email/Password, etc.).
+- Users sign in with Firebase Auth (Email/Password).
 - Auth state is stored in AuthContext.
 - If a user is not signed in, restricted actions (e.g., writing reviews) will show a login prompt.
 
